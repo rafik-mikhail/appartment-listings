@@ -1,0 +1,97 @@
+# compiled output
+# backend/dist
+backend/node_modules
+backend/build
+
+# Logs
+backend/ logs
+backend/ *.log
+backend/ npm-debug.log*
+backend/ pnpm-debug.log*
+backend/ yarn-debug.log*
+backend/ yarn-error.log*
+backend/ lerna-debug.log*
+
+# OS
+.DS_Store
+
+# Tests
+backend/coverage
+backend/.nyc_output
+
+# IDEs and editors
+backend/.idea
+backend/.project
+backend/.classpath
+backend/.c9/
+backend/*.launch
+backend/.settings/
+backend/*.sublime-workspace
+
+# IDE - VSCode
+backend/.vscode/*
+backend/!.vscode/settings.json
+backend/!.vscode/tasks.json
+backend/!.vscode/launch.json
+backend/!.vscode/extensions.json
+
+# dotenv environment variable files
+# .env
+backend/.env.development.local
+backend/.env.test.local
+backend/.env.production.local
+backend/.env.local
+
+# temp directory
+backend/.temp
+backend/.tmp
+
+# Runtime data
+backend/pids
+backend/*.pid
+backend/*.seed
+backend/*.pid.lock
+
+# Diagnostic reports (https://nodejs.org/api/report.html)
+backend/report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+appartment-listing-app/node_modules
+appartment-listing-app/.pnp
+appartment-listing-app/.pnp.js
+appartment-listing-app/.yarn/install-state.gz
+
+# testing
+appartment-listing-app/coverage
+
+# next.js
+appartment-listing-app/.next/
+appartment-listing-app/out/
+
+# production
+appartment-listing-app/build
+
+# misc
+appartment-listing-app/.DS_Store
+appartment-listing-app/*.pem
+
+# debug
+appartment-listing-app/npm-debug.log*
+appartment-listing-app/yarn-debug.log*
+appartment-listing-app/yarn-error.log*
+
+# local env files
+appartment-listing-app/.env*.local
+
+# vercel
+appartment-listing-app/.vercel
+
+# typescript
+appartment-listing-app/*.tsbuildinfo
+appartment-listing-app/next-env.d.ts
+
+backend/postgres
+# backend/node_modules
+# appartment-listing-app/node_modules

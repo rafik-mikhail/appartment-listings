@@ -1,0 +1,107 @@
+version: '2'
+services:
+  frontend:
+    build:
+      context: ./appartment-listing-app
+      dockerfile: ./Dockerfile
+    image: frontend:latest
+    # command: sh -c "yarn run migration:run && yarn run start"
+    hostname: frontend
+    container_name: frontend
+    # volumes:
+    #   - ./SMS/backend:/usr/app/
+    #   - /usr/app/node_modules
+    restart: always
+    # env_file:
+    #   - ./SMS/config/backend.env
+    ports:
+      - "3001:3000"
+    # depends_on:
+    #   - postgres
+    #   - solace-forms
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
+    image: backend:latest
+    # command: sh -c "yarn run migration:run && yarn run start"
+    hostname: backend
+    container_name: backend
+    # volumes:
+    #   - ./SMS/backend:/usr/app/
+    #   - /usr/app/node_modules
+    restart: always
+    # env_file:
+    #   - ./SMS/config/backend.env
+    ports:
+      - "3002:3005"
+    depends_on:
+      - postgres
+    #   - solace-forms
+  postgres:
+    image: postgres:14.0-alpine
+    hostname: postgres
+    environment:
+      POSTGRES_USER: nawy
+      POSTGRES_DB: nawy
+      POSTGRES_PASSWORD: nawy
+    restart: always
+    container_name: postgres
+    ports:
+      - 3003:5432
+    volumes:
+      - ./backend/postgres/data:/var/lib/postgresql/data
+      - ./backend/config/postgresql.conf:/etc/postgresql.conf
+    command: postgres -c config_file=/etc/postgresql.conf
+  # nginx:
+  #   build:
+  #     context: ./SMS
+  #     dockerfile: ./Dockerfile.nginx
+  #   image: nginx:certbot
+  #   hostname: nginx
+  #   container_name: nginx
+  #   restart: always
+  #   env_file:
+  #     - ./SMS/admin-dashboard/.env.production
+  #   depends_on:
+  #     - backend
+  #   ports:
+  #     - 443:443
+  #     - 80:80
+  #   volumes:
+  #     - ./SMS/admin-dashboard/build/:/var/www/etsc.solacecontrols.com/html/
+  #     - ./SMS/config/etsc.solacecontrols.com:/etc/nginx/conf.d/etsc.solacecontrols.com.conf
+  #     - ./SMS/nginx/log/:/var/log/nginx/
+  #     - ./SMS/letscencrypt:/etc/letsencrypt
+  # mongo:
+  #   image: mongo:latest
+  #   hostname: mongo
+  #   restart: always
+  #   container_name: mongo
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: solace_forms
+  #     MONGO_INITDB_ROOT_PASSWORD: solace_forms
+  #   ports:
+  #     - 27017:27017
+  #   volumes:
+  #     - ./solace-forms/mongo/data/:/data/db
+  #     - ./solace-forms/mongo/log/:/var/log/mongodb/
+  #   command: [--auth, --logpath, /var/log/mongodb/mongod.log, --logappend] 
+  # solace-forms:
+  #   build:
+  #     context: ./solace-forms
+  #     dockerfile: ./Dockerfile
+  #   image: solace-forms:latest
+  #   command: sh -c "yarn run start"
+  #   hostname: solace-forms
+  #   container_name: solace-forms
+  #   volumes:
+  #     - ./solace-forms:/usr/app/
+  #     - /usr/app/node_modules
+  #   restart: always
+  #   env_file:
+  #     - ./SMS/config/solace-forms.env
+  #   ports:
+  #     - "5002:5002"
+  #   depends_on:
+  #     - mongo
